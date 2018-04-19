@@ -22,6 +22,14 @@ const (
 	ValidationErrorClaimsInvalid
 )
 
+// NewValidationError 使用给定的错误消息创建一个ValidationError对象
+func NewValidationError(errorText string, errorFlags uint32) *ValidationError {
+	return &ValidationError{
+		text:   errorText,
+		Errors: errorFlags,
+	}
+}
+
 // ValidationError 在转换或验证token失败时发生
 type ValidationError struct {
 	Inner  error
