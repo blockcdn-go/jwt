@@ -6,6 +6,7 @@ import "errors"
 var (
 	ErrInvalidKeyType   = errors.New("key is of invalid type")
 	ErrSignatureInvalid = errors.New("signature is invalid")
+	ErrHashUnavailable  = errors.New("the requested hash function is unavailable")
 )
 
 // 这些错误会在转换或验证token时发生

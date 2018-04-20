@@ -39,7 +39,7 @@ func (m *HMACMethod) Algorithm() string {
 func (m *HMACMethod) Sign(canonicalString string, key interface{}) (string, error) {
 	if keyBytes, ok := key.([]byte); ok {
 		if !m.Hash.Available() {
-			return "", ErrSignatureInvalid
+			return "", ErrHashUnavailable
 		}
 
 		hasher := hmac.New(m.Hash.New, keyBytes)
