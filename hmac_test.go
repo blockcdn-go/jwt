@@ -17,21 +17,21 @@ var hmacTestData = []struct {
 }{
 	{
 		"web sample",
-		"eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.dBjftJeZ4CVP-mB92K27uhbUJU1p1r_wW1gFWFOEjXk",
+		"eyJ0eXAiOiJKV1QiLA0KICJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJqb2UiLA0KICJleHAiOjEzMDA4MTkzODAsDQogImh0dHA6Ly9leGFtcGxlLmNvbS9pc19yb290Ijp0cnVlfQ.AmUus1JoLd_ZBRLipjgE4JYpo708f-3Gwm8q3XrmcAU",
 		"HS256",
 		map[string]interface{}{"iss": "joe", "exp": 1300819380, "http://example.com/is_root": true},
 		true,
 	},
 	{
 		"HS384",
-		"eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJleHAiOjEuMzAwODE5MzhlKzA5LCJodHRwOi8vZXhhbXBsZS5jb20vaXNfcm9vdCI6dHJ1ZSwiaXNzIjoiam9lIn0.KWZEuOD5lbBxZ34g7F-SlVLAQ_r5KApWNWlZIIMyQVz5Zs58a7XdNzj5_0EcNoOy",
+		"eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJleHAiOjEuMzAwODE5MzhlKzA5LCJodHRwOi8vZXhhbXBsZS5jb20vaXNfcm9vdCI6dHJ1ZSwiaXNzIjoiam9lIn0.0R356iZXLpQAlD793UIpuVtqjO_fETDzvIVIoXeTYqyfkjKb-sPq9nVHP216KinG",
 		"HS384",
 		map[string]interface{}{"iss": "joe", "exp": 1300819380, "http://example.com/is_root": true},
 		true,
 	},
 	{
 		"HS512",
-		"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEuMzAwODE5MzhlKzA5LCJodHRwOi8vZXhhbXBsZS5jb20vaXNfcm9vdCI6dHJ1ZSwiaXNzIjoiam9lIn0.CN7YijRX6Aw1n2jyI2Id1w90ja-DEMYiWixhYCyHnrZ1VfJRaFQz1bEbjjA5Fn4CLYaUG432dEYmSbS4Saokmw",
+		"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJleHAiOjEuMzAwODE5MzhlKzA5LCJodHRwOi8vZXhhbXBsZS5jb20vaXNfcm9vdCI6dHJ1ZSwiaXNzIjoiam9lIn0.Y-x6Ld37HgYXEdqfm9b98TsRHH-usSUxK5BEivjiDZYD5-laWBb2KPoqugcBuxVxfE0pJOiAx_oznQVyycWUUw",
 		"HS512",
 		map[string]interface{}{"iss": "joe", "exp": 1300819380, "http://example.com/is_root": true},
 		true,
@@ -73,6 +73,18 @@ func TestHMACVerify(t *testing.T) {
 			assert.NotNil(t, err)
 		}
 	}
+}
+
+func BenchmarkHS256Signing(b *testing.B) {
+	benchmarkSigning(b, HS256Method, hmacTestKey)
+}
+
+func BenchmarkHS384Signing(b *testing.B) {
+	benchmarkSigning(b, HS384Method, hmacTestKey)
+}
+
+func BenchmarkHS512Signing(b *testing.B) {
+	benchmarkSigning(b, HS512Method, hmacTestKey)
 }
 
 func benchmarkSigning(b *testing.B, method SigningMethod, key interface{}) {
