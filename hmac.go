@@ -3,8 +3,6 @@ package jwt
 import (
 	"crypto"
 	"crypto/hmac"
-	"crypto/sha256"
-	"crypto/sha512"
 )
 
 // HMACMethod 实现了HMAC-SHA家族哈希函数
@@ -22,10 +20,6 @@ var (
 )
 
 func init() {
-	crypto.RegisterHash(crypto.SHA256, sha256.New)
-	crypto.RegisterHash(crypto.SHA384, sha512.New384)
-	crypto.RegisterHash(crypto.SHA512, sha512.New)
-
 	HS256Method = &HMACMethod{"HS256", crypto.SHA256}
 	RegisterSigningMethod(HS256Method.Algorithm(), HS256Method)
 
