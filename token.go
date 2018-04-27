@@ -84,3 +84,13 @@ func DecodeSegment(seg string) ([]byte, error) {
 
 	return base64.URLEncoding.DecodeString(seg)
 }
+
+// Parse 解析一个jwt令牌字符串
+func Parse(tokenString string, keyFunc KeyFunc) (*Token, error) {
+	return new(Parser).Parse(tokenString, keyFunc)
+}
+
+// ParseWithClaims 解析jwt令牌字符串
+func ParseWithClaims(tokenString string, claims Claims, keyFunc KeyFunc) (*Token, error) {
+	return new(Parser).ParseWithClaims(tokenString, claims, keyFunc)
+}
