@@ -27,7 +27,7 @@ type StandardClaims struct {
 // 那么我们仍然认为该token是合法的
 func (c StandardClaims) Valid() error {
 	vErr := new(ValidationError)
-	now := TimeFunc().Unix()
+	now := TimeFunc().UTC().Unix()
 
 	if !c.VerifyExpiresAt(now, false) {
 		delta := time.Unix(now, 0).Sub(time.Unix(c.ExpiresAt, 0))

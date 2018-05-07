@@ -78,7 +78,7 @@ func (m MapClaims) VerifyNotBefore(cmp int64, req bool) bool {
 // 那么我们仍然认为该token是合法的
 func (m MapClaims) Valid() error {
 	vErr := new(ValidationError)
-	now := TimeFunc().Unix()
+	now := TimeFunc().UTC().Unix()
 
 	if !m.VerifyExpiresAt(now, false) {
 		vErr.Inner = errors.New("token is expired")
