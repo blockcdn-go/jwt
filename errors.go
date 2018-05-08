@@ -22,6 +22,7 @@ const (
 	ValidationErrorNotValidYet
 	ValidationErrorID
 	ValidationErrorClaimsInvalid
+	ValidationErrorClaimsType
 )
 
 // NewValidationError 使用给定的错误消息创建一个ValidationError对象
