@@ -119,18 +119,15 @@ func (p *Parser) ParseUnverified(tokenString string, claims Claims) (token *Toke
 
 	if c, ok := token.Claims.(MapClaims); ok {
 		err = dec.Decode(&c)
-		if err != nil {
-			return token, parts, &ValidationError{Inner: err, Errors: ValidationErrorMalformed}
-		}
-		token.Claims = c
 	} else if c, ok := token.Claims.(StandardClaims); ok {
 		err = dec.Decode(&c)
-		if err != nil {
-			return token, parts, &ValidationError{Inner: err, Errors: ValidationErrorMalformed}
-		}
 		token.Claims = c
 	} else {
-		return token, parts, &ValidationError{Inner: err, Errors: ValidationErrorClaimsType}
+		err = dec.Decode(&claims)
+	}
+
+	if err != nil {
+		return token, parts, &ValidationError{Inner: err, Errors: ValidationErrorMalformed}
 	}
 
 	if method, ok := token.Header["alg"].(string); ok {
